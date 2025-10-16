@@ -7,12 +7,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: undefined
-      }
-    }
+    emptyOutDir: true
   },
-  base: './' // Important for Vercel
+  publicDir: 'public'
 })
