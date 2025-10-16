@@ -11,5 +11,7 @@
   "devDependencies": {
     "vite": "^5.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lucide": "^0.0.1"
+  }
 }
