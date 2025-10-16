@@ -1,0 +1,14 @@
+{
+  "name": "rl-maze-trainer-web",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm run preview"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
