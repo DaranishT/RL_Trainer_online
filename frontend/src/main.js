@@ -3,13 +3,9 @@ import './style.css'
 
 // API integration class to communicate with the backend
 class PackageAPI {
-    static baseURL = window.location.hostname === 'localhost' 
-        ? 'http://localhost:5000/api' 
-        : '/api';
+    static baseURL = '/api';
 
     static async generatePackage(config) {
-        console.log('Sending config to backend:', config);
-        
         const response = await fetch(`${this.baseURL}/generate-package`, {
             method: 'POST',
             headers: {
@@ -27,40 +23,15 @@ class PackageAPI {
     }
 
     static async downloadPackage(packageId) {
-        const response = await fetch(`${this.baseURL}/download/${packageId}`);
+        const response = await fetch(`${this.baseURL}/download?packageId=${packageId}`);
         
         if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Download failed: ${response.status} - ${errorText}`);
+            throw new Error('Download failed');
         }
         
-        // Get filename from Content-Disposition header or use default
-        const contentDisposition = response.headers.get('Content-Disposition');
-        let filename = `RLMazeTrainer_${Date.now()}.zip`;
-        
-        if (contentDisposition) {
-            const filenameMatch = contentDisposition.match(/filename="(.+)"/);
-            if (filenameMatch) {
-                filename = filenameMatch[1];
-            }
-        }
-        
-        // Create download
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-        
-        return { success: true, filename };
+        return response.json();
     }
 }
-
-
 // Main application class
 class RLMTApp {
     constructor() {
