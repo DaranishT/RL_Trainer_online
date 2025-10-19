@@ -1,4 +1,4 @@
-import { PackageGenerator } from '../../package-generator.js';
+import { PackageGenerator } from '../../../package-generator.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   try {
     const { config } = req.body;
     
-    console.log('📦 Generating package with config:', config);
+    console.log('Generating package with config:', config);
     
     if (!config || !config.mazeRooms || !config.trainingSteps) {
       return res.status(400).json({ error: 'Invalid configuration' });
@@ -29,8 +29,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Package generation error:', error);
     res.status(500).json({ 
-      error: 'Failed to generate package',
-      details: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+      error: 'Failed to generate package'
     });
   }
 }
